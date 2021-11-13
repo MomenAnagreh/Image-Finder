@@ -5,7 +5,7 @@ function TopBar() {
   return (
     <AppBar position="fixed" sx={{ backgroundColor: "#29b6f6" }}>
       <Toolbar variant="dense">
-        <Link to="/">
+        <Link to="/" style={{ textDecoration: "none" }}>
           <Button
             edge="start"
             color="inherit"
@@ -21,7 +21,7 @@ function TopBar() {
             Search
           </Button>
         </Link>
-        <Link to="/history">
+        <Link to="/history" style={{ textDecoration: "none" }}>
           <Button sx={{ color: "white", fontSize: 15, fontFamily: "inherit" }}>
             History
           </Button>
