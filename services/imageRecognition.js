@@ -13,9 +13,8 @@ const client = new RekognitionClient({
   credentials: { accessKeyId, secretAccessKey },
 });
 
-export const getLabelsForImage = async (b64Image) => {
+export const getLabelsForImage = async b64Image => {
   let imageBytes = Buffer.from(b64Image, "base64");
-
   const command = new DetectLabelsCommand({ Image: { Bytes: imageBytes } });
   const response = await client.send(command);
 
