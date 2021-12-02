@@ -1,11 +1,20 @@
 import React, { useMemo, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
+import { uploadImage } from "../api";
 
 function Search() {
   const onDrop = useCallback((acceptedFiles) => {
-    // Do something with the files
-    console.log(acceptedFiles);
+    const reader = new FileReader();
+
+    reader.readAsDataURL(acceptedFiles[0]);
+
+    reader.onload = () => {
+      const b64WTag = reader.result;
+      var b64 = b64WTag.replace(/^data:image\/[a-z]+;base64,/, "");
+      uploadImage(b64);
+    };
   }, []);
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const style = useMemo(
