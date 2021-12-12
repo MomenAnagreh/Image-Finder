@@ -1,19 +1,27 @@
 import React, { useMemo, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import { uploadImage } from "../api";
+import { useNavigate } from "react-router-dom";
+import { useUploadImage } from "../api";
+import { CircularProgress } from "@mui/material";
 
 function Search() {
-  const onDrop = useCallback((acceptedFiles) => {
-    const reader = new FileReader();
+  const { loading, uploadImage } = useUploadImage();
+  const navigate = useNavigate();
 
-    reader.readAsDataURL(acceptedFiles[0]);
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(acceptedFiles[0]);
 
-    reader.onload = () => {
-      const b64WTag = reader.result;
-      var b64 = b64WTag.replace(/^data:image\/[a-z]+;base64,/, "");
-      uploadImage(b64);
-    };
-  }, []);
+      reader.onload = async () => {
+        const b64WTag = reader.result;
+        const b64 = b64WTag.replace(/^data:image\/[a-z]+;base64,/, "");
+        const res = await uploadImage(b64);
+        navigate("/results", { state: res.data });
+      };
+    },
+    [navigate, uploadImage]
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
@@ -25,7 +33,9 @@ function Search() {
     [isDragActive]
   );
 
-  return (
+  return loading ? (
+    <CircularProgress size={75} />
+  ) : (
     <div {...getRootProps({ style })}>
       <input {...getInputProps()} />
       {isDragActive ? (

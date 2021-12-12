@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "@google-cloud/vision": "^2.4.0",
     "cors": "^2.8.5",
     "express-formidable": "^1.2.0",
+    "google-search-results-nodejs": "^2.0.1",
     "react-dropzone": "^11.4.2"
   }
 }

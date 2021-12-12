@@ -3,6 +3,7 @@ import TopBar from "./components/TopBar";
 import { Routes, Route } from "react-router-dom";
 import HistoryPage from "./components/HistoryPage";
 import Search from "./components/Search";
+import Results from "./components/ResultsPage";
 
 function App() {
   return (
@@ -10,7 +11,8 @@ function App() {
       <header className="App-header" style={{ backgroundColor: "white" }}>
         <TopBar />
         <Routes>
-          <Route path="/" element={Search()} />
+          <Route path="/" element={<Search />} />
+          <Route path="/results" element={<Results />}  />
           <Route path="history" element={<HistoryPage />} />
         </Routes>
       </header>
