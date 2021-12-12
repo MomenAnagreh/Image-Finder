@@ -7,8 +7,8 @@ import Search from "./components/Search";
 function App() {
   return (
     <div className="App" style={{ flex: 1 }}>
+      <TopBar />
       <header className="App-header" style={{ backgroundColor: "white" }}>
-        <TopBar />
         <Routes>
           <Route path="/" element={Search()} />
           <Route path="history" element={<HistoryPage />} />
@@ -20,5 +20,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

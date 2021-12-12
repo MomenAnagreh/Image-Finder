@@ -1,6 +1,7 @@
 import React, { useMemo, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import { uploadImage } from "../api";
+import { onFileResize } from "./ImageResize";
+import Cam from "./Cam";
 
 function Search() {
   const onDrop = useCallback((acceptedFiles) => {
@@ -9,9 +10,7 @@ function Search() {
     reader.readAsDataURL(acceptedFiles[0]);
 
     reader.onload = () => {
-      const b64WTag = reader.result;
-      var b64 = b64WTag.replace(/^data:image\/[a-z]+;base64,/, "");
-      uploadImage(b64);
+      onFileResize(acceptedFiles[0]);
     };
   }, []);
 
@@ -26,17 +25,20 @@ function Search() {
   );
 
   return (
-    <div {...getRootProps({ style })}>
-      <input {...getInputProps()} />
-      {isDragActive ? (
-        <p style={{ color: "#29b6f6", margin: "auto" }}>
-          Drop the files here ...
-        </p>
-      ) : (
-        <p style={{ color: "#29b6f6", margin: "auto" }}>
-          Drop files here, or click to select files
-        </p>
-      )}
+    <div>
+      <div {...getRootProps({ style })}>
+        <input {...getInputProps()} />
+        {isDragActive ? (
+          <p style={{ color: "#29b6f6", margin: "auto" }}>
+            Drop the files here ...
+          </p>
+        ) : (
+          <p style={{ color: "#29b6f6", margin: "auto" }}>
+            Drop files here, or click to select files
+          </p>
+        )}
+      </div>
+      <Cam />
     </div>
   );
 }
@@ -57,6 +59,7 @@ const baseStyle = {
   transition: "border .24s ease-in-out",
   width: 1200,
   cursor: "pointer",
+  minHeight: 300,
 };
 
 const activeStyle = {
