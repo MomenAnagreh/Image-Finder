@@ -1,7 +1,7 @@
 CREATE TABLE search_history
     (
         search_id SERIAL PRIMARY KEY,
-        item_image BYTEA,
+        item_image TEXT,
         item_name VARCHAR,
-        url_link VARCHAR
+        search_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );

@@ -20,3 +20,23 @@ export const useUploadImage = () => {
   };
   return { loading, uploadImage };
 };
+
+const getHistoryApi = async () => await axios.get(`${baseUri}/history`);
+
+export const useGetHistory = () => {
+  const [loading, setLoading] = useState(false);
+
+  const getHistory = async () => {
+    try {
+      setLoading(true);
+      const res = await getHistoryApi();
+      setLoading(false);
+      return res;
+    } catch {
+      setLoading(false);
+    }
+  };
+  return { loading, getHistory };
+};
+
+

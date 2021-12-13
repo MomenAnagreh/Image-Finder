@@ -8,19 +8,15 @@ import Results from "./components/ResultsPage";
 function App() {
   return (
     <div className="App" style={{ flex: 1 }}>
+      <TopBar />
       <header className="App-header" style={{ backgroundColor: "white" }}>
-        <TopBar />
         <Routes>
           <Route path="/" element={<Search />} />
-          <Route path="/results" element={<Results />}  />
+          <Route path="/results" element={<Results />} />
           <Route path="history" element={<HistoryPage />} />
         </Routes>
       </header>
-      <footer>
-        <p>Copyright &copy; 2021 The Image finder</p>
-      </footer>
     </div>
   );
 }
-
 export default App;
