@@ -1,69 +1,51 @@
-import React, { useMemo, useCallback } from "react";
-import { useDropzone } from "react-dropzone";
-import { onFileResize } from "./ImageResize";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useUploadImage } from "../api";
+import { CircularProgress, Tabs, Tab, Box } from "@mui/material";
+import { onFileResize } from "../ImageResize";
 import Cam from "./Cam";
+import { ImageUpload } from "./ImageUpload";
 
 function Search() {
-  const onDrop = useCallback((acceptedFiles) => {
-    const reader = new FileReader();
+  const [tabVal, setTabVal] = React.useState("upload");
+  const { loading, uploadImage } = useUploadImage();
+  const navigate = useNavigate();
 
-    reader.readAsDataURL(acceptedFiles[0]);
+  const handleFileUpload = (data) => {
+    onFileResize({ file: data, navigate, uploadImage });
+  };
 
-    reader.onload = () => {
-      onFileResize(acceptedFiles[0]);
-    };
-  }, []);
+  const handleTabChange = (e, newVal) => {
+    setTabVal(newVal);
+  };
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
-
-  const style = useMemo(
-    () => ({
-      ...baseStyle,
-      ...(isDragActive ? activeStyle : {}),
-    }),
-    [isDragActive]
-  );
-
-  return (
-    <div>
-      <div {...getRootProps({ style })}>
-        <input {...getInputProps()} />
-        {isDragActive ? (
-          <p style={{ color: "#29b6f6", margin: "auto" }}>
-            Drop the files here ...
-          </p>
-        ) : (
-          <p style={{ color: "#29b6f6", margin: "auto" }}>
-            Drop files here, or click to select files
-          </p>
-        )}
-      </div>
-      <Cam />
-    </div>
+  return loading ? (
+    <CircularProgress size={75} />
+  ) : (
+    <Box
+      sx={{
+        margin: "65px 80px 80px 80px",
+        padding: 2,
+        border: "1px solid lightGrey",
+        borderRadius: 2,
+        width: "80%",
+      }}
+    >
+      <Tabs
+        value={tabVal}
+        onChange={handleTabChange}
+        variant="fullWidth"
+        sx={{ padding: 1 }}
+      >
+        <Tab label="Upload" value="upload" />
+        <Tab label="Camera" value="camera" />
+      </Tabs>
+      {tabVal === "upload" && (
+        <ImageUpload handleFileUpload={handleFileUpload} />
+      )}
+      {tabVal === "camera" && <Cam handleFileUpload={handleFileUpload} />}
+    </Box>
   );
 }
-
-const baseStyle = {
-  flex: 0.25,
-  display: "flex",
-  flexDirection: "inherit",
-  alignItems: "center",
-  padding: "20px",
-  borderWidth: 2,
-  borderRadius: 2,
-  borderColor: "#eeeeee",
-  borderStyle: "dashed",
-  backgroundColor: "Gainsboro",
-  color: "#bdbdbd",
-  outline: "none",
-  transition: "border .24s ease-in-out",
-  width: 1200,
-  cursor: "pointer",
-  minHeight: 300,
-};
-
-const activeStyle = {
-  borderColor: "#2196f3",
-};
 
 export default Search;
