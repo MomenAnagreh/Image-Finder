@@ -32,10 +32,29 @@ const HistoryCard = ({ historyItem, uploadImage }) => {
         boxShadow: "none",
         border: "1px solid lightGrey",
         padding: 1,
-        maxHeight: 400,
+        maxHeight: 300,
+        borderRadius: "15px",
+        flexWrap: "wrap",
+        width: 500,
+        height: 500,
       }}
     >
-      <Box sx={{ display: "flex", flexDirection: "column", width: "70%" }}>
+      <CardMedia
+        image={b64Str}
+        component="img"
+        sx={{
+          width: "45%",
+          borderRadius: "15px",
+          display: "flex",
+        }}
+      />
+      <Box
+        sx={{
+          flex: 1,
+          flexDirection: "column",
+          // width: "10%",
+        }}
+      >
         <CardContent>
           <Typography variant="h5">{item_name}</Typography>
           <Typography>Time Searched: {search_time}</Typography>
@@ -43,17 +62,12 @@ const HistoryCard = ({ historyItem, uploadImage }) => {
             variant="outlined"
             startIcon={<ReplayIcon />}
             onClick={handleSearchAgain}
-            sx={{marginTop: 1}}
+            sx={{ marginTop: 1 }}
           >
             Search Again
           </Button>
         </CardContent>
       </Box>
-      <CardMedia
-        image={b64Str}
-        component="img"
-        sx={{ width: "20%", height: 150 }}
-      />
     </Card>
   );
 };
@@ -75,20 +89,29 @@ const HistoryPage = () => {
     <CircularProgress size={75} />
   ) : (
     <Box color="black" width="100%" marginTop={7}>
-      <Typography variant="h4">Search History</Typography>
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        width="100%"
+      <Typography
+        variant="h4"
+        sx={{
+          fontSize: 32,
+          fontFamily: "inherit",
+          fontWeight: 700,
+          marginTop: 3,
+          marginBottom: 3,
+        }}
       >
-        {historyData.slice(0).reverse().map((h) => (
-          <HistoryCard
-            key={h.search_id}
-            historyItem={h}
-            uploadImage={uploadImage.uploadImage}
-          />
-        ))}
+        Search History
+      </Typography>
+      <Box display="flex" width="100%" height="1000px">
+        {historyData
+          .slice(0)
+          .reverse()
+          .map((h) => (
+            <HistoryCard
+              key={h.search_id}
+              historyItem={h}
+              uploadImage={uploadImage.uploadImage}
+            />
+          ))}
       </Box>
     </Box>
   );
