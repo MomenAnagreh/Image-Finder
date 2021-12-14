@@ -34,9 +34,8 @@ const HistoryCard = ({ historyItem, uploadImage }) => {
         padding: 1,
         maxHeight: 300,
         borderRadius: "15px",
-        flexWrap: "wrap",
-        width: 500,
-        height: 500,
+        width: 440,
+        height: 440,
       }}
     >
       <CardMedia
@@ -55,7 +54,15 @@ const HistoryCard = ({ historyItem, uploadImage }) => {
           // width: "10%",
         }}
       >
-        <CardContent>
+        <CardContent
+          sx={{
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "0px 8px 0px 8px"
+          }}
+        >
           <Typography variant="h5">{item_name}</Typography>
           <Typography>Time Searched: {search_time}</Typography>
           <Button
@@ -80,7 +87,9 @@ const HistoryPage = () => {
   useEffect(() => {
     const fetch = async () => {
       const res = await getHistory();
-      setHistoryData(res.data);
+      if (res) {
+        setHistoryData(res.data);
+      }
     };
     fetch();
   }, []);
@@ -101,7 +110,7 @@ const HistoryPage = () => {
       >
         Search History
       </Typography>
-      <Box display="flex" width="100%" height="1000px">
+      <Box display="flex" width="100%" flexWrap="wrap">
         {historyData
           .slice(0)
           .reverse()
