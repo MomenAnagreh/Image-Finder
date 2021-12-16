@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Card,
@@ -6,6 +6,7 @@ import {
   Typography,
   CardMedia,
   Rating,
+  TextField,
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
 
@@ -56,6 +57,18 @@ const UserUpload = ({ imageLabel, uploadedImage }) => {
   );
 };
 
+export const SearchBar = ({ setSearch }) => {
+  return (
+    <Box width="100%" display="flex" justifyContent="flex-end">
+      <TextField
+        placeholder="Search products.."
+        onChange={(e) => setSearch(e.target.value)}
+        sx={{ padding: 1, paddingRight: 3 }}
+      />
+    </Box>
+  );
+};
+
 const ResultsPage = () => {
   const location = useLocation();
 
@@ -63,6 +76,12 @@ const ResultsPage = () => {
     resData: { searchResult, imageLabel },
     uploadedImage,
   } = location.state;
+
+  const [searchStr, setSearchStr] = useState("");
+  const unfilteredProducts = searchResult ? searchResult.shopping_results : [];
+  const filteredProducts = unfilteredProducts.filter((p) =>
+    p.source.toLowerCase().includes(searchStr.toLowerCase())
+  );
 
   return (
     <Box sx={{ marginTop: 6, display: "flex", width: "100%" }} color="black">
@@ -72,10 +91,13 @@ const ResultsPage = () => {
           No results found
         </Box>
       ) : (
-        <Box height="93vh" overflow="auto">
-          {searchResult.shopping_results.map((product, i) => (
-            <ResultCard key={i} product={product} />
-          ))}
+        <Box display="flex-column" width="100%" height="93vh">
+          <SearchBar setSearch={setSearchStr} />
+          <Box height="93vh" overflow="auto">
+            {filteredProducts.map((product, i) => (
+              <ResultCard key={i} product={product} />
+            ))}
+          </Box>
         </Box>
       )}
     </Box>
