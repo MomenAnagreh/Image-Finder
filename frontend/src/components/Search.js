@@ -18,7 +18,6 @@ function Search() {
   const handleTabChange = (e, newVal) => {
     setTabVal(newVal);
   };
-
   return loading ? (
     <CircularProgress size={75} />
   ) : (
