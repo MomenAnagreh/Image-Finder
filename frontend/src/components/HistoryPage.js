@@ -37,6 +37,7 @@ const HistoryCard = ({ historyItem, uploadImage }) => {
         borderRadius: "15px",
         width: 440,
         height: 440,
+        marginLeft: 3,
       }}
     >
       <CardMedia
@@ -120,7 +121,7 @@ const HistoryPage = () => {
             fontSize: 32,
             fontFamily: "inherit",
             fontWeight: 700,
-            marginTop: 3,
+            marginTop: 5,
             marginBottom: 3,
             whiteSpace: "nowrap",
             paddingLeft: 2,
