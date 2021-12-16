@@ -5,6 +5,7 @@ import { CircularProgress, Tabs, Tab, Box } from "@mui/material";
 import { onFileResize } from "../ImageResize";
 import Cam from "./Cam";
 import { ImageUpload } from "./ImageUpload";
+import { isMobile } from "react-device-detect";
 
 function Search() {
   const [tabVal, setTabVal] = React.useState("upload");

@@ -36,6 +36,7 @@ const HistoryCard = ({ historyItem, uploadImage }) => {
         borderRadius: "15px",
         width: 440,
         height: 440,
+        marginLeft: 3,
       }}
     >
       <CardMedia
@@ -60,7 +61,7 @@ const HistoryCard = ({ historyItem, uploadImage }) => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            padding: "0px 8px 0px 8px"
+            padding: "0px 8px 0px 8px",
           }}
         >
           <Typography variant="h5">{item_name}</Typography>
@@ -97,14 +98,14 @@ const HistoryPage = () => {
   return loading || uploadImage.loading ? (
     <CircularProgress size={75} />
   ) : (
-    <Box color="black" width="100%" marginTop={7}>
+    <Box color="black" width="100%" marginTop={5} backgroundColor="#d3d3d378">
       <Typography
         variant="h4"
         sx={{
           fontSize: 32,
           fontFamily: "inherit",
           fontWeight: 700,
-          marginTop: 3,
+          marginTop: 5,
           marginBottom: 3,
         }}
       >
