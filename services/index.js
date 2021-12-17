@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { getGoogleImageData, getLabelsForImage } from "./imageRecognition.js";
+import { getGoogleImageData } from "./imageRecognition.js";
 import { searchGoogle } from "./googleSearch.js";
 import { getHistory, insertHistory } from "./database/searchHistory.js";
 
