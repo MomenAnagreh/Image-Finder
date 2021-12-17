@@ -16,7 +16,7 @@ const ResultCard = (props) => {
   return source.length < 20 ? (
     <div
       style={{
-        paddingTop: 10,
+        paddingTop: 5,
         flexWrap: "wrap",
         display: "inline-block",
       }}
@@ -95,11 +95,11 @@ const UserUpload = ({ imageLabel, uploadedImage }) => {
 
 export const SearchBar = ({ setSearch }) => {
   return (
-    <Box width="100%" display="flex" justifyContent="flex-end">
+    <Box width="99.4%" display="flex" justifyContent="flex-end">
       <TextField
         placeholder="Search products.."
         onChange={(e) => setSearch(e.target.value)}
-        sx={{ padding: 1, paddingRight: 3 }}
+        sx={{ padding: 2, paddingRight: 3 }}
       />
     </Box>
   );
