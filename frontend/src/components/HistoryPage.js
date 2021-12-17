@@ -109,7 +109,7 @@ const HistoryPage = () => {
         display="flex"
         alignItems="center"
         position="fixed"
-        width="100%"
+        width="99%"
         backgroundColor="white"
         zIndex={99}
         height={80}
@@ -123,7 +123,7 @@ const HistoryPage = () => {
             marginTop: 5,
             marginBottom: 3,
             whiteSpace: "nowrap",
-            paddingLeft: 2,
+            paddingLeft: 4,
           }}
         >
           Search History

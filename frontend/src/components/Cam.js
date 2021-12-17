@@ -56,10 +56,10 @@ export default function Cam({ handleFileUpload }) {
       </div>
       <Webcam
         audio={false}
-        height={400}
+        height={"25%"}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
-        width={500}
+        width={"35%"}
         videoConstraints={videoConstraints}
       />
     </div>
