@@ -38,6 +38,7 @@ const HistoryCard = ({ historyItem, uploadImage }) => {
         width: 440,
         height: 440,
         marginLeft: 3,
+        backgroundColor: "#e6e6e6",
       }}
     >
       <CardMedia
@@ -117,7 +118,7 @@ const HistoryPage = () => {
         <Typography
           variant="h4"
           sx={{
-            fontSize: 32,
+            fontSize: { md: 32, xs: 23 },
             fontFamily: "inherit",
             fontWeight: 700,
             marginTop: 5,
