@@ -101,7 +101,6 @@ const HistoryPage = () => {
     p.item_name?.toLowerCase()?.includes(searchStr.toLowerCase())
   );
 
-  console.log(historyData);
   return loading || uploadImage.loading ? (
     <CircularProgress size={75} />
   ) : (
