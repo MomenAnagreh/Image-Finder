@@ -27,10 +27,11 @@ const ResultCard = (props) => {
           boxShadow: "none",
           border: "1px solid lightGrey",
           padding: 1,
-          width: { md: 460, sm: 250, xs: 250 },
+          width: { md: 460, sm: 250, xs: 300 },
           height: { md: 300, sm: 360, xs: 360 },
-          display: {md: "flex", sm: "flex-column", xs: "flex-column"},
+          display: { md: "flex", sm: "flex-column", xs: "flex-column" },
           borderRadius: "15px",
+          backgroundColor: { md: "white", xs: "#e6e6e6" },
         }}
       >
         <Box
@@ -39,7 +40,7 @@ const ResultCard = (props) => {
             width: "100%",
             height: "50%",
             paddingTop: { md: 5, sm: 0, xs: 0 },
-            justifyContent: "center"
+            justifyContent: "center",
           }}
         >
           <CardContent>
@@ -61,9 +62,8 @@ const ResultCard = (props) => {
           component="img"
           image={thumbnail}
           sx={{
-            maxHeight: "100%",
+            maxHeight: { md: "100%", sm: "50%", xs: "50%" },
             maxWidth: "100%",
-        
           }}
         />
       </Card>
@@ -74,15 +74,17 @@ const ResultCard = (props) => {
 const UserUpload = ({ imageLabel, uploadedImage }) => {
   return (
     <Box
-      width="150%"
-      paddingTop={3}
-      borderRadius="15px"
-      borderWidth={10}
-      height="50%"
+      sx={{
+        width: { md: "80%", sm: "50%", xs: "100%" },
+        paddingTop: 3,
+        borderRadius: "15px",
+        borderWidth: 10,
+        height: "50%",
+      }}
     >
       <img
         style={{
-          width: "70%",
+          width: "50%",
         }}
         src={uploadedImage}
         alt="failure"
@@ -98,7 +100,10 @@ export const SearchBar = ({ setSearch }) => {
       <TextField
         placeholder="Search products.."
         onChange={(e) => setSearch(e.target.value)}
-        sx={{ padding: 2, paddingRight: 3 }}
+        sx={{
+          padding: 2,
+          paddingRight: 3,
+        }}
       />
     </Box>
   );
@@ -122,7 +127,7 @@ const ResultsPage = () => {
     <Box
       sx={{
         marginTop: 6,
-        display: "flex",
+        display: { md: "flex", sm: "flex-column", xs: "flex-column" },
         width: "100%",
       }}
       color="black"
@@ -134,10 +139,12 @@ const ResultsPage = () => {
         </Box>
       ) : (
         <Box
-          height="100vh"
-          overflow="auto"
-          width="500%"
-          backgroundColor="lightgray"
+          sx={{
+            height: "100vh",
+            overflow: "auto",
+            width: "100%",
+            backgroundColor: { md: "#e6e6e6", sm: "white", xs: "white" },
+          }}
         >
           <SearchBar setSearch={setSearchStr} />
           <Box height="93vh" overflow="auto">
