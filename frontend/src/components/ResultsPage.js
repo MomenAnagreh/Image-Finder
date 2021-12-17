@@ -27,18 +27,19 @@ const ResultCard = (props) => {
           boxShadow: "none",
           border: "1px solid lightGrey",
           padding: 1,
-          width: 460,
-          height: 300,
-          display: "flex",
+          width: { md: 460, sm: 250, xs: 250 },
+          height: { md: 300, sm: 360, xs: 360 },
+          display: {md: "flex", sm: "flex-column", xs: "flex-column"},
           borderRadius: "15px",
         }}
       >
         <Box
           sx={{
             display: "flex",
-            width: "70%",
+            width: "100%",
             height: "50%",
-            paddingTop: 5,
+            paddingTop: { md: 5, sm: 0, xs: 0 },
+            justifyContent: "center"
           }}
         >
           <CardContent>
@@ -60,11 +61,9 @@ const ResultCard = (props) => {
           component="img"
           image={thumbnail}
           sx={{
-            width: 190,
-            height: 250,
-            paddingTop: 5,
-            paddingLeft: 3,
-            paddingRight: 3,
+            maxHeight: "100%",
+            maxWidth: "100%",
+        
           }}
         />
       </Card>
