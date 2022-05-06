@@ -26,17 +26,24 @@ const activeStyle = {
 export const ImageUpload = ({ handleFileUpload }) => {
   const onDrop = useCallback(
     (acceptedFiles) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(acceptedFiles[0]);
+      if (acceptedFiles.length) {
+        const reader = new FileReader();
+        reader.readAsDataURL(acceptedFiles[0]);
 
-      reader.onload = async () => {
-        handleFileUpload(acceptedFiles[0]);
-      };
+        reader.onload = async () => {
+          handleFileUpload(acceptedFiles[0]);
+        };
+        console.log(acceptedFiles);
+      }
     },
     [handleFileUpload]
   );
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive, fileRejections } =
+    useDropzone({
+      onDrop,
+      accept: "image/jpeg,image/png",
+    });
 
   const style = useMemo(
     () => ({
@@ -55,7 +62,9 @@ export const ImageUpload = ({ handleFileUpload }) => {
         </p>
       ) : (
         <p style={{ color: "#29b6f6", margin: "auto" }}>
-          Drop files here, or click to select files
+          {fileRejections.length
+            ? "Invalid File"
+            : "Drop files here, or click to select files"}
         </p>
       )}
     </div>

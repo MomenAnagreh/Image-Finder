@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { useUploadImage } from "../api";
 import { dataURLtoBlob } from "./Cam";
 import { SearchBar } from "./ResultsPage";
+import { Sort } from "./Sort";
 
 const HistoryCard = ({ historyItem, uploadImage }) => {
   const { item_image, item_name, search_time } = historyItem;
@@ -97,10 +98,31 @@ const HistoryPage = () => {
     fetch();
   }, []);
 
+  const [sortStr, setSortStr] = useState(3);
+  let sortedHistory = null;
+
+  sortStr === 1
+    ? (sortedHistory = historyData.sort((a, b) =>
+        a.item_name.toLowerCase() > b.item_name.toLowerCase() ? 1 : -1
+      ))
+    : sortStr === 2
+    ? (sortedHistory = historyData.sort((a, b) =>
+        a.item_name.toLowerCase() < b.item_name.toLowerCase() ? 1 : -1
+      ))
+    : sortStr === 3
+    ? (sortedHistory = historyData.sort((a, b) =>
+        a.search_time < b.search_time ? 1 : -1
+      ))
+    : (sortedHistory = historyData.sort((a, b) =>
+        a.search_time > b.search_time ? 1 : -1
+      ));
+
   const [searchStr, setSearchStr] = useState("");
-  const filteredHistory = historyData.filter((p) =>
-    p.item_name?.toLowerCase()?.includes(searchStr.toLowerCase())
-  );
+  const filteredHistory = sortedHistory
+    .reverse()
+    .filter((p) =>
+      p.item_name?.toLowerCase()?.includes(searchStr.toLowerCase())
+    );
 
   return loading || uploadImage.loading ? (
     <CircularProgress size={75} />
@@ -129,7 +151,23 @@ const HistoryPage = () => {
         >
           Search History
         </Typography>
-        <SearchBar setSearch={setSearchStr} />
+        <Box
+          width="90%"
+          display="flex"
+          flexDirection="row"
+          alignItems="center"
+          justifyContent="flex-end"
+          height="100%"
+        >
+          <Sort
+            item1="A-Z"
+            item2="Z-A"
+            item3="Newest"
+            item4="Oldest"
+            setSort={setSortStr}
+          />
+          <SearchBar setSearch={setSearchStr} />
+        </Box>
       </Box>
       <Box display="flex" width="100%" flexWrap="wrap" pt={10} height="100vh">
         {filteredHistory
