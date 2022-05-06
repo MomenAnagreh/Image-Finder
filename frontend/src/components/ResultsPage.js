@@ -122,7 +122,7 @@ const ResultsPage = () => {
     <Box
       sx={{
         marginTop: 6,
-        display: "flex",
+        display:{md: "flex", sm: "flex-column", xs: "flex-column"},
         width: "100%",
       }}
       color="black"
