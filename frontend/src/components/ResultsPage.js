@@ -9,6 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import { Sort } from "./Sort";
 
 const ResultCard = (props) => {
   const { title, price, rating, source, thumbnail, link } = props.product;
@@ -28,19 +29,23 @@ const ResultCard = (props) => {
           border: "1px solid lightGrey",
           padding: 1,
           width: { md: 460, sm: 250, xs: 300 },
-          height: { md: 300, sm: 360, xs: 360 },
+          height: { md: 350, sm: 360, xs: 360 },
           display: { md: "flex", sm: "flex-column", xs: "flex-column" },
           borderRadius: "15px",
           backgroundColor: { md: "white", xs: "#e6e6e6" },
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <Box
           sx={{
             display: "flex",
-            width: "100%",
-            height: "50%",
-            paddingTop: { md: 5, sm: 0, xs: 0 },
-            justifyContent: "center",
+            width: "35%",
+            height: "100%",
+            // paddingTop: { md: 5, sm: 0, xs: 0 },
+            // justifyContent: "center",
+            alignItems: "center",
+            fontSize: 20,
           }}
         >
           <CardContent>
@@ -62,8 +67,8 @@ const ResultCard = (props) => {
           component="img"
           image={thumbnail}
           sx={{
-            maxHeight: { md: "100%", sm: "50%", xs: "50%" },
-            maxWidth: "100%",
+            height: { md: "60%", sm: "50%", xs: "50%" },
+            width: "65%",
           }}
         />
       </Card>
@@ -96,7 +101,7 @@ const UserUpload = ({ imageLabel, uploadedImage }) => {
 
 export const SearchBar = ({ setSearch }) => {
   return (
-    <Box width="99.4%" display="flex" justifyContent="flex-end">
+    <Box display="flex" justifyContent="flex-end">
       <TextField
         placeholder="Search products.."
         onChange={(e) => setSearch(e.target.value)}
@@ -117,8 +122,40 @@ const ResultsPage = () => {
     uploadedImage,
   } = location.state;
 
+  const [sortStr, setSortStr] = useState(1);
+  let sortedResult = searchResult.shopping_results;
+
   const [searchStr, setSearchStr] = useState("");
-  const unfilteredProducts = searchResult ? searchResult.shopping_results : [];
+
+  if (!Array.isArray(searchResult.shopping_results)) {
+    return <div style={{ color: "black" }}>No results found</div>;
+  }
+  searchResult.shopping_results.map((h) =>
+    h.hasOwnProperty("rating") ? 1 : (h.rating = 0)
+  );
+  searchResult.shopping_results.map((h) =>
+    h.price.slice(0, 3) === "IDR"
+      ? (h.price =
+          "$" +
+          Math.ceil(
+            Number(h.price.slice(3, 17).split(",").join("") / 14377.94)
+          ))
+      : null
+  );
+
+  sortStr === 1
+    ? (sortedResult = searchResult.shopping_results.sort((a, b) =>
+        a.extracted_price > b.extracted_price ? 1 : -1
+      ))
+    : sortStr === 2
+    ? (sortedResult = searchResult.shopping_results.sort((a, b) =>
+        a.extracted_price < b.extracted_price ? 1 : -1
+      ))
+    : (sortedResult = searchResult.shopping_results.sort((a, b) =>
+        a.rating < b.rating ? 1 : -1
+      ));
+
+  const unfilteredProducts = searchResult ? sortedResult : [];
   const filteredProducts = unfilteredProducts.filter((p) =>
     p.source.toLowerCase().includes(searchStr.toLowerCase())
   );
@@ -146,7 +183,24 @@ const ResultsPage = () => {
             backgroundColor: { md: "#e6e6e6", sm: "white", xs: "white" },
           }}
         >
-          <SearchBar setSearch={setSearchStr} />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              height: "7.1%",
+              paddingRight: 2.5,
+            }}
+          >
+            <Sort
+              item1="Price: Low to High"
+              item2="Price: high to low"
+              item3="By Rating"
+              setSort={setSortStr}
+            />
+            <SearchBar setSearch={setSearchStr} />
+          </Box>
           <Box height="93vh" overflow="auto">
             {filteredProducts.map((product, i) => (
               <ResultCard key={i} product={product} />
