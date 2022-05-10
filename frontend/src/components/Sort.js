@@ -2,6 +2,7 @@ import * as React from "react";
 import Popover from "@mui/material/Popover";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/system";
+import { isMobile } from "react-device-detect";
 
 export const Sort = ({ item1, item2, item3, item4, setSort }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -23,12 +24,19 @@ export const Sort = ({ item1, item2, item3, item4, setSort }) => {
   };
 
   return (
-    <Box height="60%" display="flex">
+    <Box
+      height={isMobile ? "65%" : "60%"}
+      display="flex"
+      width={isMobile ? "2%" : "7%"}
+    >
       <Button
         aria-describedby={id}
         variant="contained"
         onClick={handleClick}
-        style={{ backgroundColor: "#29b6f6" }}
+        style={{
+          backgroundColor: "#29b6f6",
+          width: isMobile ? "90%" : "100%",
+        }}
       >
         Sort
       </Button>

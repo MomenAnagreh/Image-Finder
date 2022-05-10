@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { Sort } from "./Sort";
+import { isMobile } from "react-device-detect";
 
 const ResultCard = (props) => {
   const { title, price, rating, source, thumbnail, link } = props.product;
@@ -28,22 +29,24 @@ const ResultCard = (props) => {
           boxShadow: "none",
           border: "1px solid lightGrey",
           padding: 1,
-          width: { md: 460, sm: 250, xs: 300 },
-          height: { md: 350, sm: 360, xs: 360 },
-          display: { md: "flex", sm: "flex-column", xs: "flex-column" },
+          width: { md: 460, xs: 350 },
+          height: { md: 350, xs: 400 },
+          display: { md: "flex", sm: "flex-column", xs: "flex" },
           borderRadius: "15px",
           backgroundColor: { md: "white", xs: "#e6e6e6" },
           justifyContent: "center",
           alignItems: "center",
+          flexDirection: isMobile ? "column" : "row",
         }}
       >
         <Box
           sx={{
             display: "flex",
-            width: "35%",
+            width: { md: "35%", sm: "50%", xs: "90%" },
             height: "100%",
             alignItems: "center",
-            fontSize: 20,
+            justifyContent: "center",
+            fontSize: 30,
           }}
         >
           <CardContent>
@@ -65,8 +68,8 @@ const ResultCard = (props) => {
           component="img"
           image={thumbnail}
           sx={{
-            height: { md: "60%", sm: "50%", xs: "50%" },
-            width: "65%",
+            height: { md: "95%", sm: "50%", xs: "50%" },
+            width: { md: "65%", sm: "50%", xs: "90%" },
           }}
         />
       </Card>
@@ -106,6 +109,7 @@ export const SearchBar = ({ setSearch }) => {
         sx={{
           padding: 2,
           paddingRight: 3,
+          width: isMobile ? "55%" : "100%",
         }}
       />
     </Box>
@@ -176,20 +180,20 @@ const ResultsPage = () => {
         <Box
           sx={{
             height: "100vh",
-            overflow: "auto",
+            // overflow: "auto",
             width: "100%",
             backgroundColor: { md: "#e6e6e6", sm: "white", xs: "white" },
           }}
         >
           <Box
             sx={{
-              backgroundColor: 'white',
+              backgroundColor: "white",
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
-              justifyContent: "flex-end",
+              justifyContent: isMobile ? "center" : "flex-end",
               height: "10%",
-              paddingRight: 2.5,
+              paddingRight: isMobile ? 0 : 2.5,
             }}
           >
             <Sort

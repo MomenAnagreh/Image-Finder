@@ -16,6 +16,7 @@ import { useUploadImage } from "../api";
 import { dataURLtoBlob } from "./Cam";
 import { SearchBar } from "./ResultsPage";
 import { Sort } from "./Sort";
+import { isMobile } from "react-device-detect";
 
 const HistoryCard = ({ historyItem, uploadImage }) => {
   const { item_image, item_name, search_time, user_name } = historyItem;
@@ -38,7 +39,7 @@ const HistoryCard = ({ historyItem, uploadImage }) => {
         borderRadius: "15px",
         width: 440,
         height: 440,
-        marginLeft: 3,
+        marginLeft: isMobile ? 1 : 3,
         backgroundColor: "#e6e6e6",
       }}
     >
@@ -97,6 +98,7 @@ const HistoryPage = () => {
       }
     };
     fetch();
+    // eslint-disable-next-line
   }, []);
 
   const [sortStr, setSortStr] = useState(3);
@@ -144,7 +146,7 @@ const HistoryPage = () => {
             fontSize: { md: 32, xs: 23 },
             fontFamily: "inherit",
             fontWeight: 700,
-            marginTop: 5,
+            marginTop: isMobile ? 3 : 5,
             marginBottom: 3,
             whiteSpace: "nowrap",
             paddingLeft: 4,

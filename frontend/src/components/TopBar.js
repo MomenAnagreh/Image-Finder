@@ -1,5 +1,6 @@
 import { AppBar, Toolbar, Button, Box } from "@mui/material";
 import { Link } from "react-router-dom";
+import { Auth } from "aws-amplify";
 
 const ToolbarButton = ({ children, ...props }) => (
   <Button
@@ -18,7 +19,7 @@ const ToolbarButton = ({ children, ...props }) => (
   </Button>
 );
 
-function TopBar({ signOut }) {
+function TopBar() {
   return (
     <AppBar position="fixed" sx={{ backgroundColor: "#29b6f6" }}>
       <Toolbar variant="dense">
@@ -34,7 +35,7 @@ function TopBar({ signOut }) {
               <ToolbarButton>Users</ToolbarButton>
             </Link>
           </div>
-          <ToolbarButton onClick={signOut}>Sign Out</ToolbarButton>
+          <ToolbarButton onClick={() => Auth.signOut()}>Sign Out</ToolbarButton>
         </Box>
       </Toolbar>
     </AppBar>
