@@ -8,7 +8,7 @@ import { ImageUpload } from "./ImageUpload";
 
 function Search() {
   const [tabVal, setTabVal] = React.useState("upload");
-  const { loading, uploadImage } = useUploadImage();
+  const [uploadImageState, uploadImage] = useUploadImage();
   const navigate = useNavigate();
 
   const handleFileUpload = (data) => {
@@ -18,7 +18,7 @@ function Search() {
   const handleTabChange = (e, newVal) => {
     setTabVal(newVal);
   };
-  return loading ? (
+  return uploadImageState.loading ? (
     <CircularProgress size={75} />
   ) : (
     <Box

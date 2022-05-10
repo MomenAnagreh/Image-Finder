@@ -1,42 +1,23 @@
 import axios from "axios";
-import { useState } from "react";
+import { useAsyncFn } from "react-use";
+import { Auth } from "aws-amplify";
+
 const baseUri = "http://127.0.0.1:9000";
 
-const uploadImageApi = async (b64Image) =>
-  await axios.post(`${baseUri}/identify`, { image: b64Image });
-
-export const useUploadImage = () => {
-  const [loading, setLoading] = useState(false);
-
-  const uploadImage = async (b64Image) => {
-    try {
-      setLoading(true);
-      const res = await uploadImageApi(b64Image);
-      setLoading(false);
-      return res;
-    } catch {
-      setLoading(false);
-    }
-  };
-  return { loading, uploadImage };
+const uploadImageApi = async (b64Image) => {
+  const user = await Auth.currentAuthenticatedUser();
+  return await axios.post(`${baseUri}/identify`, {
+    image: b64Image,
+    user: user.attributes.email,
+  });
 };
+export const useUploadImage = () => useAsyncFn(uploadImageApi, []);
 
 const getHistoryApi = async () => await axios.get(`${baseUri}/history`);
+export const useGetHistory = () => useAsyncFn(getHistoryApi, []);
 
-export const useGetHistory = () => {
-  const [loading, setLoading] = useState(false);
+export const createUserApi = async (email) =>
+  await axios.post(`${baseUri}/signup`, { email });
 
-  const getHistory = async () => {
-    try {
-      setLoading(true);
-      const res = await getHistoryApi();
-      setLoading(false);
-      return res;
-    } catch {
-      setLoading(false);
-    }
-  };
-  return { loading, getHistory };
-};
-
-
+const getUsersApi = async () => await axios.get(`${baseUri}/users`);
+export const useGetUsers = () => useAsyncFn(getUsersApi, []);

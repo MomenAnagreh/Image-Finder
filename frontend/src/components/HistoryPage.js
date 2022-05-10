@@ -18,7 +18,7 @@ import { SearchBar } from "./ResultsPage";
 import { Sort } from "./Sort";
 
 const HistoryCard = ({ historyItem, uploadImage }) => {
-  const { item_image, item_name, search_time } = historyItem;
+  const { item_image, item_name, search_time, user_name } = historyItem;
   const b64Str = `data:image/jpeg;base64,${item_image}`;
 
   const navigate = useNavigate();
@@ -69,6 +69,7 @@ const HistoryCard = ({ historyItem, uploadImage }) => {
         >
           <Typography variant="h5">{item_name}</Typography>
           <Typography>Time Searched: {search_time}</Typography>
+          <Typography>Searched by: {user_name}</Typography>
           <Button
             variant="outlined"
             startIcon={<ReplayIcon />}
@@ -84,9 +85,9 @@ const HistoryCard = ({ historyItem, uploadImage }) => {
 };
 
 const HistoryPage = () => {
-  const { loading, getHistory } = useGetHistory();
+  const [getHistoryState, getHistory] = useGetHistory();
   const [historyData, setHistoryData] = useState([]);
-  const uploadImage = useUploadImage();
+  const [uploadImageState, uploadImage] = useUploadImage();
 
   useEffect(() => {
     const fetch = async () => {
@@ -102,35 +103,35 @@ const HistoryPage = () => {
   let sortedHistory = null;
 
   sortStr === 1
-    ? (sortedHistory = historyData.sort((a, b) =>
+    ? (sortedHistory = historyData?.sort((a, b) =>
         a.item_name.toLowerCase() > b.item_name.toLowerCase() ? 1 : -1
       ))
     : sortStr === 2
-    ? (sortedHistory = historyData.sort((a, b) =>
+    ? (sortedHistory = historyData?.sort((a, b) =>
         a.item_name.toLowerCase() < b.item_name.toLowerCase() ? 1 : -1
       ))
     : sortStr === 3
-    ? (sortedHistory = historyData.sort((a, b) =>
+    ? (sortedHistory = historyData?.sort((a, b) =>
         a.search_time < b.search_time ? 1 : -1
       ))
-    : (sortedHistory = historyData.sort((a, b) =>
+    : (sortedHistory = historyData?.sort((a, b) =>
         a.search_time > b.search_time ? 1 : -1
       ));
 
   const [searchStr, setSearchStr] = useState("");
   const filteredHistory = sortedHistory
-    .reverse()
-    .filter((p) =>
+    ?.reverse()
+    ?.filter((p) =>
       p.item_name?.toLowerCase()?.includes(searchStr.toLowerCase())
     );
 
-  return loading || uploadImage.loading ? (
+  return getHistoryState.loading || uploadImageState.loading ? (
     <CircularProgress size={75} />
   ) : (
     <Box color="black" width="100%" marginTop={6}>
       <Box
         display="flex"
-        alignItems="center"
+        alignItems="end"
         position="fixed"
         width="99%"
         backgroundColor="white"
@@ -171,13 +172,13 @@ const HistoryPage = () => {
       </Box>
       <Box display="flex" width="100%" flexWrap="wrap" pt={10} height="100vh">
         {filteredHistory
-          .slice(0)
-          .reverse()
-          .map((h) => (
+          ?.slice(0)
+          ?.reverse()
+          ?.map((h) => (
             <HistoryCard
               key={h.search_id}
               historyItem={h}
-              uploadImage={uploadImage.uploadImage}
+              uploadImage={uploadImage}
             />
           ))}
       </Box>

@@ -42,8 +42,6 @@ const ResultCard = (props) => {
             display: "flex",
             width: "35%",
             height: "100%",
-            // paddingTop: { md: 5, sm: 0, xs: 0 },
-            // justifyContent: "center",
             alignItems: "center",
             fontSize: 20,
           }}
@@ -185,11 +183,12 @@ const ResultsPage = () => {
         >
           <Box
             sx={{
+              backgroundColor: 'white',
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "flex-end",
-              height: "7.1%",
+              height: "10%",
               paddingRight: 2.5,
             }}
           >

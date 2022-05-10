@@ -30,6 +30,9 @@ function TopBar({ signOut }) {
             <Link to="/history" style={{ textDecoration: "none" }}>
               <ToolbarButton>History</ToolbarButton>
             </Link>
+            <Link to="/users" style={{ textDecoration: "none" }}>
+              <ToolbarButton>Users</ToolbarButton>
+            </Link>
           </div>
           <ToolbarButton onClick={signOut}>Sign Out</ToolbarButton>
         </Box>
