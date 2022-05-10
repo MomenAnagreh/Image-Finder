@@ -11,6 +11,7 @@ export const onFileResize = ({ file, navigate, uploadImage }) => {
     async (uri) => {
       const b64 = uri.replace(/^data:image\/[a-z]+;base64,/, "");
       const res = await uploadImage(b64);
+      console.log(res)
       navigate("/results", {
         state: { resData: res.data, uploadedImage: uri },
       });

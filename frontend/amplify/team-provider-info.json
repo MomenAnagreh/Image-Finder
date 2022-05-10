@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-imagefinder-dev-223520-authRole",
+      "UnauthRoleArn": "arn:aws:iam::237750748423:role/amplify-imagefinder-dev-223520-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::237750748423:role/amplify-imagefinder-dev-223520-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-imagefinder-dev-223520-deployment",
+      "UnauthRoleName": "amplify-imagefinder-dev-223520-unauthRole",
+      "StackName": "amplify-imagefinder-dev-223520",
+      "StackId": "arn:aws:cloudformation:us-east-1:237750748423:stack/amplify-imagefinder-dev-223520/02940b50-cc1c-11ec-8581-1252aa9967a9",
+      "AmplifyAppId": "df1mnzjnwsqys"
+    },
+    "categories": {
+      "auth": {
+        "imagefindereda7d7cc": {}
+      }
+    }
+  }
+}

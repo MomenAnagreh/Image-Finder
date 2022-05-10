@@ -17,6 +17,11 @@ export const Sort = ({ item1, item2, item3, item4, setSort }) => {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
+  const onSortClicked = (sort) => {
+    setSort(sort);
+    handleClose();
+  };
+
   return (
     <Box height="60%" display="flex">
       <Button
@@ -55,11 +60,7 @@ export const Sort = ({ item1, item2, item3, item4, setSort }) => {
               backgroundColor: "lightgray",
             },
           }}
-          onClick={() => {
-            console.log(item1, "Clicked");
-            setSort(1);
-            setAnchorEl(null);
-          }}
+          onClick={() => onSortClicked(1)}
         >
           {item1}
         </Box>
@@ -78,11 +79,7 @@ export const Sort = ({ item1, item2, item3, item4, setSort }) => {
               backgroundColor: "lightgray",
             },
           }}
-          onClick={() => {
-            console.log(item2, "Clicked");
-            setSort(2);
-            setAnchorEl(null);
-          }}
+          onClick={() => onSortClicked(2)}
         >
           {item2}
         </Box>
@@ -102,11 +99,7 @@ export const Sort = ({ item1, item2, item3, item4, setSort }) => {
                 backgroundColor: "lightgray",
               },
             }}
-            onClick={() => {
-              console.log(item3, "Clicked");
-              setSort(3);
-              setAnchorEl(null);
-            }}
+            onClick={() => onSortClicked(3)}
           >
             {item3}
           </Box>
@@ -126,11 +119,7 @@ export const Sort = ({ item1, item2, item3, item4, setSort }) => {
                 backgroundColor: "lightgray",
               },
             }}
-            onClick={() => {
-              console.log(item4, "Clicked");
-              setSort(4);
-              setAnchorEl(null);
-            }}
+            onClick={() => onSortClicked(4)}
           >
             {item4}
           </Box>
