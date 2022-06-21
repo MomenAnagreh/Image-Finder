@@ -25,10 +25,13 @@ export const Users = () => {
         display="flex"
         alignItems="end"
         position="fixed"
-        width="99%"
+        width="100%"
         backgroundColor="white"
         zIndex={99}
-        height={80}
+        sx={{
+          justifyContent: { xs: "center", md: "flex-start" },
+          height: { xs: 60, md: 80 },
+        }}
       >
         <Typography
           variant="h4"
@@ -36,16 +39,26 @@ export const Users = () => {
             fontSize: { md: 32, xs: 23 },
             fontFamily: "inherit",
             fontWeight: 700,
-            marginTop: 5,
+            marginTop: { md: 5, xs: 2 },
             marginBottom: 3,
             whiteSpace: "nowrap",
-            paddingLeft: 4,
+            paddingLeft: { md: 4 },
           }}
         >
           Users
         </Typography>
       </Box>
-      <Box mt={10}>
+      <Box
+        mt={10}
+        sx={{
+          display: "flex",
+          flexDirection: { md: "row", xs: "column" },
+          justifyContent: "center",
+          alignItems: "center",
+          paddingLeft: { md: 10 },
+          paddingRight: { md: 10 },
+        }}
+      >
         {usersState?.value?.data?.map((u) => (
           <Box
             sx={{
@@ -54,10 +67,18 @@ export const Users = () => {
               padding: 1,
               margin: 1,
               borderRadius: 2,
+              width: { md: "25%", xs: "80%" },
+              height: { md: "20vh" },
+              display: { md: "flex" },
+              flexDirection: { md: "column" },
+              justifyContent: { md: "center" },
+              alignItems: { md: "center" },
+              flexWrap: { md: "wrap" },
+              boxShadow: { xs: "1px 1px 5px grey" },
             }}
           >
             <Box>{u.user_name}</Box>
-            <Box>Searches: {u.count}</Box>
+            <Box sx={{ color: "#29b6f6" }}>Searches: {u.count}</Box>
           </Box>
         ))}
       </Box>

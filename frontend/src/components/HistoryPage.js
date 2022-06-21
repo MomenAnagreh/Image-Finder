@@ -37,7 +37,7 @@ const HistoryCard = ({ historyItem, uploadImage }) => {
         padding: 1,
         maxHeight: 300,
         borderRadius: "15px",
-        width: 440,
+        width: { md: 440, xs: 400 },
         height: 440,
         marginLeft: isMobile ? 1 : 3,
         backgroundColor: "#e6e6e6",

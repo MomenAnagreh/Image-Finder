@@ -109,7 +109,7 @@ export const SearchBar = ({ setSearch }) => {
         sx={{
           padding: 2,
           paddingRight: 3,
-          width: isMobile ? "55%" : "100%",
+          width: isMobile ? "75%" : "100%",
         }}
       />
     </Box>
